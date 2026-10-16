@@ -73,7 +73,7 @@ The definitions, reference periods, and geographic coverage of the input data sh
 
 ## Expected Outputs
 
-Depending on the scripts and data-processing procedures implemented in this repository, outputs may include:
+Outputs may include:
 
 - Poverty shares by LGU.
 - Ideal program targets.
@@ -90,7 +90,4 @@ Depending on the scripts and data-processing procedures implemented in this repo
 - Fractional allocations may require a documented rounding procedure to ensure that final allocations sum to the national target.
 - The allocation of geographic targets does not automatically determine individual household eligibility.
 
-## Repository Scope
-
-This repository focuses on poverty-share-based target allocation. Its documented functionality should be interpreted according to the scripts, data inputs, and outputs actually included in the repository.
 
