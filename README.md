@@ -1,81 +1,96 @@
 # Poverty Share Allocation
 
+A data-driven approach to distributing program targets across local government units (LGUs) in the Philippines based on poverty shares and existing program coverage.
+
 ## Overview
 
-This repository contains an analytical approach for allocating program targets across cities and municipalities based on their share of the total estimated poor population.
+This repository focuses on the computation of poverty-share-based program target allocations. It provides an analytical approach for estimating ideal targets for cities and municipalities, identifying gaps between ideal and existing targets, and distributing available additional slots according to residual need.
 
-The method is intended to support evidence-based and needs-oriented resource allocation by distributing a predetermined program target proportionally according to poverty-related measures.
+The approach is intended to support evidence-based target setting and promote a more equitable geographic distribution of program coverage.
 
-## Objectives
+## Allocation Methodology
 
-- Develop a transparent and reproducible method for allocating program targets based on poverty data.
-- Ensure that areas with a larger share of the estimated poor population receive a proportionally larger share of the total target.
-- Support planning, target-setting, and resource allocation decisions using quantitative evidence.
-- Provide a basis for examining the geographic distribution of program coverage.
+The allocation process follows these steps:
 
-## Methodology
+1. Calculate each LGU's share of the selected poverty measure.
+2. Estimate its ideal program target based on its poverty share.
+3. Compare its ideal target with its current or projected target.
+4. Calculate residual needs and the available additional slots.
+5. Distribute additional slots proportionally according to residual need.
+6. Calculate final target allocations and validate the results.
 
-### Poverty-Share Allocation
+### Allocation Formula
 
-The allocation method distributes a fixed total target across geographic areas according to each area's proportion of the aggregate poverty measure.
-
-The allocation formula is:
+The ideal target for LGU \(i\) is:
 
 $$
-A_i = T \times \frac{P_i}{\sum_{j=1}^{n} P_j}
+I_i = T_{\text{nat}} \times
+\frac{P_i}{\sum_{j=1}^{n} P_j}
 $$
 
 Where:
 
-- $A_i$= Allocated target for city/municipality $i$
-- $T$= Total program target to be distributed
-- $P_i$= Poverty measure for city/municipality $i$
-- $n$= Total number of cities/municipalities included in the allocation
-- $\sum_{j=1}^{n} P_j$ = Aggregate poverty measure across all included areas
+- $I_i$ = Ideal target for LGU $i$
+- $T_{\text{nat}}$= National program target
+- $P_i$ = Selected poverty measure for LGU $i$
+- $n$ = Number of LGUs included in the allocation
 
-The poverty measure may refer to the estimated number of poor households or another explicitly defined poverty-related measure, depending on the analytical requirements and available data.
+Residual need is calculated as:
 
-### Interpretation
+$$
+R_i = \max(I_i-C_i,0)
+$$
 
-Under this approach, each city's or municipality's allocation is proportional to its share of the aggregate poverty measure.
+Where $C_i$ represents the current or projected target for LGU $i$.
 
-For example, if a municipality accounts for 5% of the total estimated poor households across all included municipalities, it receives 5% of the total target under the basic allocation formula.
+The additional allocation is:
 
-### Allocation Considerations
+$$
+U_i = \frac{R_i}{\sum_{j=1}^{n}R_j}\times A
+$$
 
-The following considerations are relevant when implementing the method:
+Where $A$ is the number of available additional slots.
 
-- **Data consistency:** Use comparable poverty measures across all geographic areas.
-- **Geographic coverage:** Ensure that the areas included in the calculation correspond to the intended program coverage.
-- **Rounding:** Adjust rounded allocations, when necessary, to ensure that the final allocations sum to the total target.
-- **Program requirements:** Consider eligibility criteria, operational capacity, and other applicable program-specific constraints.
-- **Validation:** Compare the resulting allocations with historical coverage, geographic poverty patterns, and other relevant indicators.
+The final target allocation is:
+
+$$
+F_i=C_i+U_i
+$$
+
+This method retains existing targets under the proposed no-reduction rule and distributes additional slots among LGUs with positive residual needs, provided the allocation constraints are feasible.
+
+## Data Requirements
+
+The analysis may require the following inputs, depending on the implementation:
+
+- Geographic identifiers for cities and municipalities.
+- Poverty measures used to calculate geographic poverty shares.
+- Current or projected program targets by LGU.
+- National program target.
+- Expected beneficiary exits, where applicable.
+
+The definitions, reference periods, and geographic coverage of the input data should be consistent across all included LGUs.
 
 ## Expected Outputs
 
-Depending on the implementation, the analysis may produce:
+Depending on the scripts and data-processing procedures implemented in this repository, outputs may include:
 
-- Poverty-share estimates for each city or municipality.
-- Allocated program targets by geographic area.
-- Geographic allocation summaries.
-- Tables for reviewing and validating the distribution of targets.
+- Poverty shares by LGU.
+- Ideal program targets.
+- Residual needs and allocation weights.
+- Additional slots allocated to each LGU.
+- Final target allocations.
+- Validation summaries for checking allocation totals and constraints.
 
-## Applications
+## Important Considerations
 
-The poverty-share allocation method may be used to inform:
-
-- Geographic distribution of social protection program targets.
-- Local-level target-setting and planning.
-- Assessment of the equity of proposed target allocations.
-- Scenario analysis for alternative total program targets.
-
-## Limitations
-
-Poverty-share allocation is a proportional allocation method and does not, by itself, account for differences in program eligibility, implementation capacity, service delivery costs, or other dimensions of vulnerability.
-
-Its results depend on the quality, coverage, and definition of the poverty measure used. Allocations should therefore be interpreted as a quantitative basis for planning rather than as an automatic determination of individual household eligibility.
+- The poverty measure must be explicitly defined. Poverty incidence rates and estimated numbers of poor households can produce different allocation results.
+- Existing targets should be reconciled with the national program target before applying the no-reduction rule.
+- If no LGU has positive residual need, an alternative rule is required to distribute any remaining slots.
+- Fractional allocations may require a documented rounding procedure to ensure that final allocations sum to the national target.
+- The allocation of geographic targets does not automatically determine individual household eligibility.
 
 ## Repository Scope
 
-This repository focuses on poverty-share-based allocation. The specific data inputs, processing procedures, implementation details, and outputs should be documented alongside the corresponding files in the repository.
+This repository focuses on poverty-share-based target allocation. Its documented functionality should be interpreted according to the scripts, data inputs, and outputs actually included in the repository.
 
