@@ -1,4 +1,4 @@
-# Poverty Share Allocation
+# Poverty Share-Based Allocation of Program Targets
 
 A data-driven approach to distributing program targets across local government units (LGUs) in the Philippines based on poverty shares and existing program coverage.
 
