@@ -27,11 +27,11 @@ $$
 
 Where:
 
-- $$ A_i $$= Allocated target for city/municipality $$ i\ $$
-- $$ T $$= Total program target to be distributed
-- $$ P_i $$= Poverty measure for city/municipality $$ i\ $$
-- $$ n $$= Total number of cities/municipalities included in the allocation
-- $$ \sum_{j=1}^{n} P_j\ $$ = Aggregate poverty measure across all included areas
+- $A_i$= Allocated target for city/municipality $i$
+- $T$= Total program target to be distributed
+- $P_i$= Poverty measure for city/municipality $i$
+- $n$= Total number of cities/municipalities included in the allocation
+- $\sum_{j=1}^{n} P_j$ = Aggregate poverty measure across all included areas
 
 The poverty measure may refer to the estimated number of poor households or another explicitly defined poverty-related measure, depending on the analytical requirements and available data.
 
